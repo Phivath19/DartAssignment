@@ -5,3 +5,5 @@ environment:
 
 dev_dependencies:
   test: ^1.26.3
+dependencies:
+  uuid: ^4.5.1

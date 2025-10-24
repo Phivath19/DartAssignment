@@ -1,6 +1,6 @@
 import 'package:uuid/uuid.dart';
 
-var uuid = uUid();
+var uuid = Uuid();
 class Question{
   final String id;
   final String title;

@@ -68,6 +68,12 @@
       "languageVersion": "3.0"
     },
     {
+      "name": "fixnum",
+      "rootUri": "file:///C:/Users/Kunaphivath/AppData/Local/Pub/Cache/hosted/pub.dev/fixnum-1.1.1",
+      "packageUri": "lib/",
+      "languageVersion": "3.1"
+    },
+    {
       "name": "frontend_server_client",
       "rootUri": "file:///C:/Users/Kunaphivath/AppData/Local/Pub/Cache/hosted/pub.dev/frontend_server_client-4.0.0",
       "packageUri": "lib/",
@@ -200,6 +206,12 @@
       "languageVersion": "3.1"
     },
     {
+      "name": "sprintf",
+      "rootUri": "file:///C:/Users/Kunaphivath/AppData/Local/Pub/Cache/hosted/pub.dev/sprintf-7.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "stack_trace",
       "rootUri": "file:///C:/Users/Kunaphivath/AppData/Local/Pub/Cache/hosted/pub.dev/stack_trace-1.12.1",
       "packageUri": "lib/",
@@ -246,6 +258,12 @@
       "rootUri": "file:///C:/Users/Kunaphivath/AppData/Local/Pub/Cache/hosted/pub.dev/typed_data-1.4.0",
       "packageUri": "lib/",
       "languageVersion": "3.5"
+    },
+    {
+      "name": "uuid",
+      "rootUri": "file:///C:/Users/Kunaphivath/AppData/Local/Pub/Cache/hosted/pub.dev/uuid-4.5.1",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
     },
     {
       "name": "vm_service",
@@ -296,7 +314,7 @@
       "languageVersion": "3.0"
     }
   ],
-  "generated": "2025-10-20T17:35:26.345456Z",
+  "generated": "2025-10-24T15:00:58.963135Z",
   "generator": "pub",
   "generatorVersion": "3.7.2",
   "flutterRoot": "file:///C:/flutter",

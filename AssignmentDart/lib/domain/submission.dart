@@ -1,8 +1,8 @@
+import 'package:uuid/uuid.dart';
+import 'question.dart';
+import 'answer.dart';
 
-import 'package:my_first_project/domain/question.dart';
-import 'package:my_first_project/domain/answer.dart';
-
-var uuid = uUid();
+final _uuid = Uuid();
 
 class Submission {
   final String id;
@@ -15,8 +15,9 @@ class Submission {
     String? id,
     required this.playerName,
     required this.quizId,
-    required this.answers,this.score = 0
-  }) : id = id ?? uuid.v4();
+    required this.answers,
+    this.score = 0,
+  }) : id = id ?? _uuid.v4();
 
   /// Calculate total score (sum of points for correct answers)
   int calculateScore(List<Question> allQuestions) {
@@ -83,7 +84,4 @@ class Submission {
         'answers': answers.map((a) => a.toJson()).toList(),
         'score': score,
       };
-
-  
-
 }

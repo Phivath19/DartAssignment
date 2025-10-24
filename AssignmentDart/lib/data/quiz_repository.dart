@@ -2,7 +2,8 @@ import 'dart:convert';
 import 'dart:io';
 import '../domain/question.dart';
 import '../domain/quiz.dart';
-
+import '../domain/answer.dart';
+import '../domain/submission.dart';
 
 class QuizRepository {
   final String quizFilePath;
@@ -24,17 +25,19 @@ class QuizRepository {
     final questionJson = (quizData['questions'] as List<dynamic>?) ?? <dynamic>[];
     final questions = questionJson.map((q) {
       final qMap = q as Map<String, dynamic>;
+      // point may be int or double in JSON -> normalize to int
+      final point = (qMap['point'] is num) ? (qMap['point'] as num).toInt() : (qMap['point'] ?? 0);
       return Question(
-        id: qMap['id'],
-        title: qMap['title'],
-        choices: List<String>.from(qMap['choices'] ?? []),
-        goodChoice: qMap['goodChoice'],
-        point: qMap['point'],
+        id: qMap['id'] as String?,
+        title: qMap['title'] as String? ?? '',
+        choices: List<String>.from(qMap['choices'] ?? <String>[]),
+        goodChoice: qMap['goodChoice'] as String? ?? '',
+        point: point as int,
       );
     }).toList();
 
     final quiz = Quiz(
-      id: quizData['id'],
+      id: quizData['id'] as String?,
       questions: questions,
     );
 
@@ -50,21 +53,26 @@ class QuizRepository {
                   ?.map((a) {
                     final aMap = a as Map<String, dynamic>;
                     return Answer(
-                      questionId: aMap['questionId'],
-                      answerChoice: aMap['answerChoice'],
+                      id: aMap['id'] as String?,
+                      questionId: aMap['questionId'] as String? ?? '',
+                      answerChoice: aMap['answerChoice'] as String? ?? '',
                     );
                   })
                   .toList() ??
               <Answer>[];
 
-          quiz.addSubmission(
-            Submission(
-              playerName: sMap['playerName'],
-              quizId: sMap['quizId'],
-              score: sMap['score'],
-              answers: answers,
-            ),
+          final score = (sMap['score'] is num) ? (sMap['score'] as num).toInt() : (sMap['score'] ?? 0);
+
+          // Create submission using the Submission constructor in lib/domain/submission.dart
+          final submission = Submission(
+            id: sMap['id'] as String?,
+            playerName: sMap['playerName'] as String? ?? '',
+            quizId: sMap['quizId'] as String? ?? '',
+            answers: answers,
+            score: score as int,
           );
+
+          quiz.addSubmission(submission);
         }
       }
     }
@@ -75,13 +83,11 @@ class QuizRepository {
   void writeSubmissions(Quiz quiz) {
     final file = File(submissionsFilePath);
 
-    // Ensure parent directory exists
     final parent = file.parent;
     if (!parent.existsSync()) {
       parent.createSync(recursive: true);
     }
 
-    // Overwrite file with current quiz submissions to avoid duplicate appends.
     final newOnes = quiz.submissions.map((s) => s.toJson()).toList();
     file.writeAsStringSync(jsonEncode(newOnes), flush: true);
   }
